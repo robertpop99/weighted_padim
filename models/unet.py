@@ -992,7 +992,7 @@ class PcmcAtm:
     def generate_atm(self, maxvar, alpha, N):
         vcm = maxvar * torch.exp(-alpha * self.rgrid)
         Z = torch.randn(N, self.n).to(self.device)
-        V = torch.linalg.cholesky(vcm)
+        V = torch.linalg.cholesky(vcm, upper=True)
         X = torch.matmul(Z, V)
         atm_pets = X.view(N, self.rows, self.cols)
 
