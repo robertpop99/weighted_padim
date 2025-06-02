@@ -940,7 +940,7 @@ def pcmc_atm(rows, cols, maxvar, alpha, covmodel_type, N, psizex, psizey, device
     #     1. create matrix of N gaussian noise vectors length n (on it's side!)
     Z = torch.randn(N, n).to(device)
     #     2. chol decomp on vcm
-    V = torch.linalg.cholesky(vcm)  # upper triangular part of cholesky [V'V=vcm]
+    V = torch.linalg.cholesky(vcm, upper=True)  # upper triangular part of cholesky [V'V=vcm]
 
     #     3. Create matrix X containing N correlated noisevecotrs length n (on it's side!)
     X = torch.matmul(Z, V)
