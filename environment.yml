@@ -10,7 +10,7 @@ dependencies:
   - pytorch=1.13
   - torchvision=0.14
   - pytorch-cuda=11.6
-  - numpy
+  - numpy<2
   - scipy
   - pandas
   - matplotlib
@@ -30,4 +30,3 @@ dependencies:
       - huggingface-hub==0.14.1
       # Later versions introduce API changes affecting ROC/AUC imports
       - torchmetrics==0.10.1
-      - tqdm
