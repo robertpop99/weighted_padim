@@ -103,10 +103,10 @@ def main(args: argparse.Namespace):
 
     start_time = time.strftime('%y_%m_%d_%H_%M_%S')
 
-    if 'padim_weights2' in args.model_type:
+    if 'padim_weights' in args.model_type or 'padim_weights2' in args.model_type:
         trainer = PadimWeights2Trainer(args=args, train_loader=train_dataset, test_loader=test_normal, logger=logger)
-    elif 'padim_weights' in args.model_type:
-        trainer = PadimWeightsTrainer(args=args, train_loader=train_dataset, test_loader=test_normal, logger=logger)
+    # elif 'padim_weights_old' in args.model_type:
+    #     trainer = PadimWeightsTrainer(args=args, train_loader=train_dataset, test_loader=test_normal, logger=logger)
     elif 'padim' in args.model_type:
         trainer = PadimTrainer(args=args, train_loader=train_dataset, test_loader=test_normal, logger=logger)
     elif 'ganomaly' in args.model_type:
@@ -114,7 +114,7 @@ def main(args: argparse.Namespace):
     elif 'diffusion' in args.model_type:
         trainer = UNETTrainer(args=args, train_loader=train_dataset, test_loader=test_normal, logger=logger)
     else:
-        trainer = PadimTrainer(args=args, train_loader=train_dataset, test_loader=test_normal, logger=logger)
+        raise ValueError(f"Unknown model type: {args.model_type}")
 
     trainer.start_time = start_time
 
@@ -122,31 +122,28 @@ def main(args: argparse.Namespace):
 
     if args.validate:
         assert args.__contains__('model_name')
-        # model_name = get_model_name(args, stats_saver)
+        model_name = get_model_name(args, stats_saver)
         # logger = stats_saver.get_column(args.model_name)
         # setup_args(logger, args)
 
-        trainer.load_model('res/stages-20_30-30_128/model_net_10_23_06_30_18_44_04.pt')
+        trainer.load_model(model_name)
         # trainer.compute_latent_distribution()
 
-        normal_losses, normal_prints = trainer.test()
+        trainer.train_loader = train_dataset_for_testing
+        train_losses, threshold, train_maps = trainer.get_threshold()
+        train_maps = np.asarray(train_maps)
+
+        normal_losses, normal_prints, normal_maps = trainer.test()
         normal_losses = np.array(normal_losses)
         normal_prints = np.array(normal_prints)
+        normal_maps = np.array(normal_maps)
 
         trainer.test_loader = test_abnormal
-        abnormal_losses, abnormal_prints = trainer.test()
+        abnormal_losses, abnormal_prints, abnormal_maps = trainer.test()
         abnormal_losses = np.array(abnormal_losses)
         abnormal_prints = np.array(abnormal_prints)
+        abnormal_maps = np.array(abnormal_maps)
 
-        # trainer.test_loader = test_normal
-        # normal_losses, normal_prints = trainer.test()
-        # normal_losses = np.array(normal_losses)
-        # normal_prints = np.array(normal_prints)
-
-        # trainer.test_loader = train_dataset_for_testing
-        # train_losses, train_prints = trainer.test()
-        # train_losses = np.array(train_losses)
-        # train_prints = np.array(train_prints)
 
         stats_obj = {}
         # plot_bins(normal_losses, abnormal_losses,
@@ -157,15 +154,24 @@ def main(args: argparse.Namespace):
         get_f1(normal_losses, abnormal_losses, print_results=True, logger=logger, stats_obj=stats_obj)
         get_accuracy(normal_losses, abnormal_losses, print_results=True, logger=logger)
         # print(compute_threshold(normal_losses, abnormal_losses))
-        thresold = compute_real_threshold(normal_losses, abnormal_losses)
+        # threshold = compute_real_threshold(normal_losses, abnormal_losses)
 
+        stats_obj['train_losses'] = train_losses
+        stats_obj['threshold'] = threshold
+        stats_obj['train_maps'] = train_maps
         stats_obj['normal_losses'] = normal_losses
         stats_obj['abnormal_losses'] = abnormal_losses
         stats_obj['normal_prints'] = normal_prints
         stats_obj['abnormal_prints'] = abnormal_prints
+        stats_obj['normal_maps'] = normal_maps
+        stats_obj['abnormal_maps'] = abnormal_maps
 
-        np.savez(f"npz/stats_{start_time}", **stats_obj)
-        # np.savez('prints', normal_prints=normal_prints, abnormal_prints=abnormal_prints, train_prints=train_prints, threshold=np.array(thresold))
+        if args.no_heatmap:
+            custom_auroc_no_heatmap(args.dataset, args.subfolder, stats_obj)
+        else:
+            custom_auroc(args.dataset, args.subfolder, stats_obj)
+
+        np.savez(f"npz/stats_{args.dataset}_{args.subfolder}_{args.model_type}_no_heatmap:{args.no_heatmap}_{start_time}", **stats_obj)
     else:
         trainer.train()
 

@@ -1,24 +1,11 @@
-% folder = 'datasets/kilauea/';
 folder = 'datasets/taal/';
-subfolders = ["train"; "test"; "abnormal"];
-% subfolders = ["test_abnormal"];
+subfolders = ["train"; "test_normal"; "test_abnormal"];
 all_files_folder = [folder, 'all/'];
 
 all_files = dir(all_files_folder);
 
 sea = 0;
 sea = imread([folder, 'taal_water_mask.tif'])==1;
-% files_in_main_folder = dir(folder);
-% for i = 1:length(files_in_main_folder)
-%     file_name = files_in_main_folder(i).name;
-%     if contains(file_name, 'mask_sea')
-%         sea = imread([folder, file_name])==0;
-%         break
-%     end
-% end
-
-% water = imread('datasets/reykjanes/reykjanes_016A_02504_162118_mask_water.tif')==1;
-% sea = imread([folder, 'lamongan_003D_09757_111111_mask_sea.tif'])==0;
 
 file_type = 'unw.';
 old_folders_name = '/unw/';
