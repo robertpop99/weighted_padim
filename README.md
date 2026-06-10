@@ -112,8 +112,6 @@ To run inference on your own images, place them in a directory following the str
 The repository includes a small set of example preprocessed images in `datasets/taal/` to verify that the model pipeline executes correctly. These images are intended for demonstration purposes only and are not used for model evaluation.
 
 
-### Dependency Notes
-
 ## Notes
 
 The code requires `torchmetrics==0.10.1`. Newer versions introduce API changes that may cause import errors. Please use the provided `environment.yml`.
