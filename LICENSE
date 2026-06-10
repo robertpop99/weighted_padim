@@ -187,8 +187,9 @@
       identification within third-party archives.
 
 
-   Copyright (C) 2020-2021 Intel Corporation - for specified files
-   Copyright 2025 Popescu Robert Gabriel, University of Bristol
+    Copyright (C) 2020-2021 Intel Corporation and contributors
+    Copyright (c) 2021 OpenAI
+    Copyright (c) 2025 Robert Gabriel Popescu
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -205,7 +206,7 @@
 
     MIT License
 
-    Copyright (c) 2021 OpenAI - for specified files
+    Copyright (c) 2021 OpenAI
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal

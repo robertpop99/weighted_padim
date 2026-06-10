@@ -1,4 +1,10 @@
-# Source of this code: https://github.com/openai/guided-diffusion/tree/main
+# Derived from OpenAI Guided Diffusion:
+# https://github.com/openai/guided-diffusion
+#
+# Copyright (c) 2021 OpenAI
+# Licensed under the MIT License.
+#
+# Modified by Robert Gabriel Popescu, 2025.
 
 """
 Various utilities for neural networks.

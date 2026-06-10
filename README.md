@@ -117,6 +117,27 @@ The repository includes a small set of example preprocessed images in `datasets/
 The code requires `torchmetrics==0.10.1`. Newer versions introduce API changes that may cause import errors. Please use the provided `environment.yml`.
 
 
+## Third-Party Code
+
+Parts of this repository are adapted from:
+
+### Guided Diffusion
+https://github.com/openai/guided-diffusion
+
+Several diffusion-model components are derived from Guided Diffusion.
+The original code is Copyright (c) 2021 OpenAI and is distributed
+under the MIT License.
+
+### Anomalib
+https://github.com/openvinotoolkit/anomalib
+
+Several anomaly-detection utilities and training components are adapted
+from Anomalib. The original code is Copyright (C) 2020-2021 Intel
+Corporation and contributors and is distributed under the Apache License 2.0.
+
+All remaining code and modifications are Copyright (c) 2025 Robert Gabriel Popescu.
+
+
 ## Citation
 
 This repository accompanies the paper:

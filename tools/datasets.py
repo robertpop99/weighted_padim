@@ -1,3 +1,5 @@
+# Copyright (c) 2025 Robert Gabriel Popescu
+
 import argparse
 import os
 import time

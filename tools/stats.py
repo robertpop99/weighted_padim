@@ -1,3 +1,5 @@
+# Copyright (c) 2025 Robert Gabriel Popescu
+
 import os
 
 import numpy as np

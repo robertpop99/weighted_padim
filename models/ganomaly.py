@@ -1,4 +1,12 @@
-# This code was adapted from: https://github.com/openvinotoolkit/anomalib
+# Adapted from Anomalib:
+# https://github.com/openvinotoolkit/anomalib
+#
+# Original work:
+# Copyright (C) 2020-2021 Intel Corporation
+# Licensed under the Apache License 2.0.
+#
+# Modifications:
+# Copyright (C) 2025 Robert Gabriel Popescu
 
 import math
 

@@ -1,4 +1,12 @@
-# This code was adapted from: https://github.com/openai/guided-diffusion/tree/main
+# Derived from OpenAI Guided Diffusion:
+# https://github.com/openai/guided-diffusion
+#
+# Original work:
+# Copyright (c) 2021 OpenAI
+# Licensed under the MIT License.
+#
+# Modifications:
+# Copyright (c) 2025 Robert Gabriel Popescu
 
 
 import os
