@@ -1,6 +1,12 @@
 # Weighted PaDiM
 
-Implementation of Weighted PaDiM, an unsupervised anomaly detection method for identifying volcanic deformation patterns in InSAR imagery. The approach extends PaDiM by applying layer-specific weights during feature extraction.
+Implementation of Weighted PaDiM, an unsupervised anomaly detection method for identifying volcanic deformation patterns in InSAR imagery. The approach extends PaDiM in two ways: (1) layer-specific weights are applied during feature extraction, and (2) the standard Mahalanobis-distance anomaly score is replaced by the negative log-likelihood of the observed feature vectors under the learned multivariate Gaussian model.
+
+## Main Modifications to PaDiM
+
+- Layer-specific weighting of extracted features.
+- Negative log-likelihood scoring based on the learned multivariate Gaussian distribution instead of the standard Mahalanobis-distance score.
+- Adaptation to volcanic deformation detection in InSAR imagery.
 
 ## Installation
 
